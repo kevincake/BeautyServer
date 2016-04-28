@@ -26,11 +26,23 @@ public class SignController {
     public HttpResult signUp(@RequestParam Map<String, String> params) {
         HttpResult result = new HttpResult();
         String userName = params.get(HttpConstants.NAME);
+        String phone = params.get(HttpConstants.PHONE);
         UserEntity userEntity = new UserEntity();
         userEntity.setName(userName);
+        userEntity.setPhone(phone);
+        userEntity.setSex(Integer.parseInt(params.get(HttpConstants.SEX)));
+        userEntity.setAvatar(params.get(HttpConstants.AVATAR));
+        userEntity.setSignature("你什么也没留下");
         UserEntity saveUser = userService.saveUser(userEntity);
         if (userName==null|| StringUtils.isEmpty(userName)){
             result.setResult(HttpConstants.FAILED);
+            result.setErrorMsg("用户名不能为空哦");
+        }else if(StringUtils.isEmpty(userEntity.getPhone())){
+            result.setResult(HttpConstants.FAILED);
+            result.setErrorMsg("手机号不能为空哦");
+        }else if(StringUtils.isEmpty(userEntity.getAvatar())){
+            result.setResult(HttpConstants.FAILED);
+            result.setErrorMsg("头像不能为空哦");
         }
         else{
             result.setResult(HttpConstants.SUCCESS);

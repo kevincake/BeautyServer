@@ -10,4 +10,7 @@ public class HttpConstants {
     public static final int SUCCESS = 1;
     public static final String USER = "user";
     public static final int FAILED = 0;
+    public static final String PHONE = "phone";
+    public static final String SEX = "sex";
+    public static final String AVATAR = "avatar";
 }
