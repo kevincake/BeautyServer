@@ -36,7 +36,7 @@ public class SignController {
         UserEntity saveUser = userService.saveUser(userEntity);
         if (userName==null|| StringUtils.isEmpty(userName)){
             result.setResult(HttpConstants.FAILED);
-            result.setErrorMsg("用户名不能为空哦");
+            result.setErrorMsg(PropertyUtil.getProperty("userNameNotNull"));
         }else if(StringUtils.isEmpty(userEntity.getPhone())){
             result.setResult(HttpConstants.FAILED);
             result.setErrorMsg("手机号不能为空哦");

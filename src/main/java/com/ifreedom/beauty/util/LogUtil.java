@@ -13,7 +13,7 @@ public class LogUtil {
     }
     public static void error(String tag,String errinfo){
         if (isShowLog){
-         System.out.println(tag+":"+errinfo);
+         System.err.println(tag+":"+errinfo);
         }
     }
 }
