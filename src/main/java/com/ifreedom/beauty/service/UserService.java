@@ -49,7 +49,7 @@ public class UserService implements IUserService {
 
     @Override
     public boolean isPhoneRegister(String phone) {
-        UserEntity phoneEntity = userRepository.findByPhone(phone);
+        UserEntity phoneEntity = userRepository.findUserByPhone(phone);
         if (phoneEntity==null){
             return false;
         }
@@ -65,5 +65,10 @@ public class UserService implements IUserService {
     @Override
     public List getUserListByPage(int pageIndex) {
         return null;
+    }
+
+    @Override
+    public UserEntity findByPhoneAndPassword(String phone, String password) {
+        return userRepository.findByPhoneAndPassword(phone,password);
     }
 }

@@ -46,7 +46,7 @@ public class PropertyUtil {
 
             try {
                 //PropertiesLoaderUtils的默认编码是ISO-8859-1,在这里转码一下
-                propertiesMap.put(keyStr, new String(props.getProperty(keyStr).getBytes("ISO-8859-1"),"utf-8"));
+                propertiesMap.put(keyStr, new String(props.getProperty(keyStr).getBytes("utf-8"),"utf-8"));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }catch (java.lang.Exception e){

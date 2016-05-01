@@ -22,7 +22,7 @@ public class SignController {
     UserService userService;
 
     @ResponseBody
-    @RequestMapping(value = "/signUp", method = RequestMethod.GET)
+    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
     public HttpResult signUp(@RequestParam Map<String, String> params) {
         HttpResult result = new HttpResult();
         String userName = params.get(HttpConstants.NAME);
@@ -32,17 +32,21 @@ public class SignController {
         userEntity.setPhone(phone);
         userEntity.setSex(Integer.parseInt(params.get(HttpConstants.SEX)));
         userEntity.setAvatar(params.get(HttpConstants.AVATAR));
-        userEntity.setSignature("signtureDefault");
+        userEntity.setSignature(PropertyUtil.getProperty("signtureDefault"));
+        userEntity.setPassword(params.get(HttpConstants.PASSWORD));
         UserEntity saveUser = userService.saveUser(userEntity);
         if (userName == null || StringUtils.isEmpty(userName)) {
             result.setResultCode(HttpConstants.FAILED);
             result.setMsg(PropertyUtil.getProperty("userNameNotNull"));
         } else if (StringUtils.isEmpty(userEntity.getPhone())) {
             result.setResultCode(HttpConstants.FAILED);
-            result.setMsg("phoneNotNull");
+            result.setMsg(PropertyUtil.getProperty("phoneNotNull"));
         } else if (StringUtils.isEmpty(userEntity.getAvatar())) {
             result.setResultCode(HttpConstants.FAILED);
-            result.setMsg("avatarNotNull");
+            result.setMsg(PropertyUtil.getProperty("avatarNotNull"));
+        } else if (!com.ifreedom.beauty.util.StringUtils.isPwdValid(userEntity.getPassword())) {
+            result.setResultCode(HttpConstants.FAILED);
+            result.setMsg(PropertyUtil.getProperty("passwordFormatError"));
         } else {
             result.setResultCode(HttpConstants.SUCCESS);
             result.getData().put(HttpConstants.USER, saveUser);
@@ -50,23 +54,35 @@ public class SignController {
         return result;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/signIn", method = RequestMethod.GET)
-    public String signIn() {
-        return "signIn";
+    public HttpResult signIn(@RequestParam(name = HttpConstants.PHONE) String phone, @RequestParam(HttpConstants.PASSWORD) String password) {
+        UserEntity userEntity = userService.findByPhoneAndPassword(phone, password);
+        HttpResult result = new HttpResult();
+        if (userEntity == null) {
+            result.setResultCode(HttpConstants.FAILED);
+            result.setMsg(PropertyUtil.getProperty("accountOrPasswordError"));
+        } else {
+            result.setResultCode(HttpConstants.SUCCESS);
+            result.getData().put(HttpConstants.USER, userEntity);
+
+        }
+        return result;
     }
 
     @ResponseBody
     @RequestMapping(value = "/isPhoneRegister", method = RequestMethod.GET)
-    public HttpResult getIsPhoneRegister(@RequestParam("phone") String phone){
+    public HttpResult getIsPhoneRegister(@RequestParam("phone") String phone) {
         HttpResult result = new HttpResult();
-        boolean isRegister =  userService.isPhoneRegister(phone);
-        if (isRegister){
+        boolean isRegister = userService.isPhoneRegister(phone);
+        if (isRegister) {
             result.setResultCode(HttpConstants.FAILED);
             result.setMsg(PropertyUtil.getProperty("phoneHasRegister"));
-        }else{
+        } else {
             result.setResultCode(HttpConstants.SUCCESS);
 
-        };
+        }
+        ;
         return result;
     }
 
