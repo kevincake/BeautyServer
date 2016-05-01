@@ -10,6 +10,7 @@ public interface IUserService {
     UserEntity saveUser(UserEntity userEntity);
     boolean updateUser(UserEntity userEntity);
     boolean deleteUser(long userId);
+    boolean isPhoneRegister(String phone);
     UserEntity getUser(long userId);
     List getUserListByPage(int pageIndex);
 }

@@ -48,6 +48,15 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public boolean isPhoneRegister(String phone) {
+        UserEntity phoneEntity = userRepository.findByPhone(phone);
+        if (phoneEntity==null){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public UserEntity getUser(long userId) {
         return null;
     }

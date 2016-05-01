@@ -6,33 +6,33 @@ import java.util.Map;
 /**
  * Created by eavawu on 4/28/16.
  */
-public class HttpResult {
-    private int result;
-    private String errorMsg;
+public class HttpResult<T> {
+    private int resultCode;
+    private String msg;
 
-    public String getErrorMsg() {
-        return errorMsg;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public Map<String, Object> getData() {
+    public Map<String, T> getData() {
         return data;
     }
 
-    public void setData(Map<String, Object> data) {
+    public void setData(Map<String, T> data) {
         this.data = data;
     }
 
-    public int getResult() {
-        return result;
+    public int getResultCode() {
+        return resultCode;
     }
 
-    public void setResult(int result) {
-        this.result = result;
+    public void setResultCode(int resultCode) {
+        this.resultCode = resultCode;
     }
 
-    private Map<String,Object> data = new HashMap<>();
+    private Map<String, T> data = new HashMap<>();
 }

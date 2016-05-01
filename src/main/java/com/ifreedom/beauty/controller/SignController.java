@@ -32,21 +32,20 @@ public class SignController {
         userEntity.setPhone(phone);
         userEntity.setSex(Integer.parseInt(params.get(HttpConstants.SEX)));
         userEntity.setAvatar(params.get(HttpConstants.AVATAR));
-        userEntity.setSignature("你什么也没留下");
+        userEntity.setSignature("signtureDefault");
         UserEntity saveUser = userService.saveUser(userEntity);
-        if (userName==null|| StringUtils.isEmpty(userName)){
-            result.setResult(HttpConstants.FAILED);
-            result.setErrorMsg(PropertyUtil.getProperty("userNameNotNull"));
-        }else if(StringUtils.isEmpty(userEntity.getPhone())){
-            result.setResult(HttpConstants.FAILED);
-            result.setErrorMsg("手机号不能为空哦");
-        }else if(StringUtils.isEmpty(userEntity.getAvatar())){
-            result.setResult(HttpConstants.FAILED);
-            result.setErrorMsg("头像不能为空哦");
-        }
-        else{
-            result.setResult(HttpConstants.SUCCESS);
-            result.getData().put(HttpConstants.USER,saveUser);
+        if (userName == null || StringUtils.isEmpty(userName)) {
+            result.setResultCode(HttpConstants.FAILED);
+            result.setMsg(PropertyUtil.getProperty("userNameNotNull"));
+        } else if (StringUtils.isEmpty(userEntity.getPhone())) {
+            result.setResultCode(HttpConstants.FAILED);
+            result.setMsg("phoneNotNull");
+        } else if (StringUtils.isEmpty(userEntity.getAvatar())) {
+            result.setResultCode(HttpConstants.FAILED);
+            result.setMsg("avatarNotNull");
+        } else {
+            result.setResultCode(HttpConstants.SUCCESS);
+            result.getData().put(HttpConstants.USER, saveUser);
         }
         return result;
     }
@@ -55,4 +54,20 @@ public class SignController {
     public String signIn() {
         return "signIn";
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/isPhoneRegister", method = RequestMethod.GET)
+    public HttpResult getIsPhoneRegister(@RequestParam("phone") String phone){
+        HttpResult result = new HttpResult();
+        boolean isRegister =  userService.isPhoneRegister(phone);
+        if (isRegister){
+            result.setResultCode(HttpConstants.FAILED);
+            result.setMsg(PropertyUtil.getProperty("phoneHasRegister"));
+        }else{
+            result.setResultCode(HttpConstants.SUCCESS);
+
+        };
+        return result;
+    }
+
 }
