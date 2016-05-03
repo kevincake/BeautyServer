@@ -14,4 +14,5 @@ public class HttpConstants {
     public static final String SEX = "sex";
     public static final String AVATAR = "avatar";
     public static final String PASSWORD = "password";
+    public static final String TOKEN = "token";
 }

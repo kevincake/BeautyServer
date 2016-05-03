@@ -1,5 +1,8 @@
 package com.ifreedom.beauty.controller;
 
+import com.ifreedom.beauty.authorization.annotation.CurrentUser;
+import com.ifreedom.beauty.authorization.manager.TokenManager;
+import com.ifreedom.beauty.authorization.model.TokenModel;
 import com.ifreedom.beauty.bean.HttpResult;
 import com.ifreedom.beauty.constants.HttpConstants;
 import com.ifreedom.beauty.entity.UserEntity;
@@ -20,7 +23,8 @@ import java.util.Map;
 public class SignController {
     @Autowired
     UserService userService;
-
+    @Autowired
+    private TokenManager tokenManager;
     @ResponseBody
     @RequestMapping(value = "/signUp", method = RequestMethod.POST)
     public HttpResult signUp(@RequestParam Map<String, String> params) {
@@ -48,8 +52,10 @@ public class SignController {
             result.setResultCode(HttpConstants.FAILED);
             result.setMsg(PropertyUtil.getProperty("passwordFormatError"));
         } else {
+            TokenModel model = tokenManager.createToken(saveUser.getId());
             result.setResultCode(HttpConstants.SUCCESS);
             result.getData().put(HttpConstants.USER, saveUser);
+            result.getData().put(HttpConstants.TOKEN,model.getToken());
         }
         return result;
     }
