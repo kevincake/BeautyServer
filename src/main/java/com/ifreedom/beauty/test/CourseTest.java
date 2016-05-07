@@ -49,6 +49,9 @@ public class CourseTest {
             courseEntity.setCourseName("course"+i);
             courseEntity.setUserId(10L);
             courseEntity.setType(1);
+            courseEntity.setJoinMan(10L);
+            courseEntity.setCourseDes("眼妆初级教程");
+            courseEntity.setCourseTime(System.currentTimeMillis());
             courseEntity.setPic(new String[]{"http://beautybucket.oss-cn-shenzhen.aliyuncs.com/0a97a05bcbe921ffc412e7f061e16d00.jpg"});
             courseEntity.setPopular(DataBaseConstants.POPULAR);
             CourseEntity courseEntityResult = courseService.addCourse(courseEntity);

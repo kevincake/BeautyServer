@@ -7,4 +7,6 @@ package com.ifreedom.beauty.iservice;
  */
 public interface IFollowService {
      int isFollow(long  userId,long beFollowId);
+     boolean addFollow(long userId,long beFollowId);
+     boolean deleteFollow(long userId,long beFollowId);
 }

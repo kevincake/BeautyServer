@@ -24,4 +24,23 @@ public class FollowService implements IFollowService {
     public int isFollow(long userId, long beFollowId) {
         return followRepository.isFollow(userId,beFollowId);
     }
+
+    public boolean addFollow(long userId,long beFollowId){
+        FollowEntity followEntity = new FollowEntity();
+        followEntity.setFollowerId(userId);
+        followEntity.setBeFollowerId(beFollowId);
+        return followRepository.save(followEntity);
+    }
+
+    @Override
+    public boolean deleteFollow(long userId, long beFollowId) {
+        FollowEntity follow = followRepository.getFollow(userId, beFollowId);
+        if (follow==null){
+            return false;
+        }else{
+            followRepository.delete(follow.getId());
+        }
+        return true;
+
+    }
 }
