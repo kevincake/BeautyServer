@@ -5,5 +5,5 @@ package com.ifreedom.beauty.test;
  */
 public class TestConstants {
     public static final String BASE_URL = "http://localhost:8080/";
-    public static final String SIGN = "sign/";
+    public static final String SIGN = "/sign/";
 }

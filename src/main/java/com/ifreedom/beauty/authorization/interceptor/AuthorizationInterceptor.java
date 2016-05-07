@@ -5,6 +5,7 @@ import com.ifreedom.beauty.authorization.annotation.Authorization;
 import com.ifreedom.beauty.authorization.manager.TokenManager;
 import com.ifreedom.beauty.authorization.model.TokenModel;
 import com.ifreedom.beauty.constants.AuthorizationConstants;
+import com.ifreedom.beauty.constants.HttpConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -36,7 +37,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         //从header中得到token
-        String authorization = request.getHeader(AuthorizationConstants.AUTHORIZATION);
+        String authorization = request.getHeader(HttpConstants.TOKEN);
         //验证token
         TokenModel model = manager.getToken(authorization);
         if (manager.checkToken(model)) {

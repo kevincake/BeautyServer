@@ -2,12 +2,14 @@ package com.ifreedom.beauty.authorization.manager;
 
 
 import com.ifreedom.beauty.authorization.model.TokenModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 对Token进行操作的接口
  * @author ScienJus
  * @date 2015/7/31.
  */
+
 public interface TokenManager {
 
     /**

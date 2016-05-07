@@ -6,6 +6,7 @@ package com.ifreedom.beauty.constants;
  * @todo:
  */
 public class HttpConstants {
+    //参数的key
     public static final String NAME = "name";
     public static final int SUCCESS = 1;
     public static final String USER = "user";
@@ -15,4 +16,17 @@ public class HttpConstants {
     public static final String AVATAR = "avatar";
     public static final String PASSWORD = "password";
     public static final String TOKEN = "token";
+    public static final String COURSELIST = "courseList";
+    public static final String USERID = "userId";
+
+    //path的参数key
+    public static final String USERID_PATH = "/{userId}";
+
+
+
+    //path
+    public static final String SIGN_IN =  "/signIn";
+    public static final String SIGN_UP = "/signUp/";
+    public static final String COURSE_CONTROL_PATH = "/course";
+    public static final String SIGN_CONTROL_PATH = "/sign";
 }

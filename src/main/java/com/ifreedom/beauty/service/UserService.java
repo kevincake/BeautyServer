@@ -3,11 +3,13 @@ package com.ifreedom.beauty.service;
 import com.ifreedom.beauty.constants.LogConstants;
 import com.ifreedom.beauty.entity.UserEntity;
 import com.ifreedom.beauty.repository.UserRepository;
-import com.ifreedom.beauty.serviceimp.IUserService;
+import com.ifreedom.beauty.iservice.IUserService;
 import com.ifreedom.beauty.util.LogUtil;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
 
 /**
  * Created by eavawu on 4/28/16.
@@ -18,12 +20,12 @@ public class UserService implements IUserService {
     UserRepository userRepository;
 
     public UserEntity saveUser(UserEntity userEntity) {
-        if (userEntity==null){
-            LogUtil.error(LogConstants.DB,"save user is null");
+        if (userEntity == null) {
+            LogUtil.error(LogConstants.DB, "save user is null");
             return null;
         }
-        if (userEntity.getName()==null){
-            LogUtil.error(LogConstants.DB,"save user userName is null");
+        if (userEntity.getName() == null) {
+            LogUtil.error(LogConstants.DB, "save user userName is null");
             return null;
         }
         UserEntity save = userRepository.save(userEntity);
@@ -32,8 +34,8 @@ public class UserService implements IUserService {
 
 
     public boolean updateUser(UserEntity userEntity) {
-        if (userEntity==null){
-            LogUtil.error(LogConstants.DB,"update user param is null");
+        if (userEntity == null) {
+            LogUtil.error(LogConstants.DB, "update user param is null");
             return false;
         }
 
@@ -50,7 +52,7 @@ public class UserService implements IUserService {
     @Override
     public boolean isPhoneRegister(String phone) {
         UserEntity phoneEntity = userRepository.findUserByPhone(phone);
-        if (phoneEntity==null){
+        if (phoneEntity == null) {
             return false;
         }
         return true;
@@ -58,7 +60,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserEntity getUser(long userId) {
-        return null;
+        return userRepository.getUser(userId);
     }
 
 
@@ -69,6 +71,13 @@ public class UserService implements IUserService {
 
     @Override
     public UserEntity findByPhoneAndPassword(String phone, String password) {
-        return userRepository.findByPhoneAndPassword(phone,password);
+        return userRepository.findByPhoneAndPassword(phone, password);
     }
+
+    public UserEntity findTop1ByPhoneAndPassword(String phone, String password) {
+        return userRepository.findByPhoneAndPassword(phone, password);
+    }
+
+
+
 }

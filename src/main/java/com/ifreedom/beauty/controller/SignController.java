@@ -1,9 +1,9 @@
 package com.ifreedom.beauty.controller;
 
-import com.ifreedom.beauty.authorization.annotation.CurrentUser;
 import com.ifreedom.beauty.authorization.manager.TokenManager;
 import com.ifreedom.beauty.authorization.model.TokenModel;
 import com.ifreedom.beauty.bean.HttpResult;
+import com.ifreedom.beauty.constants.AuthorizationConstants;
 import com.ifreedom.beauty.constants.HttpConstants;
 import com.ifreedom.beauty.entity.UserEntity;
 import com.ifreedom.beauty.service.UserService;
@@ -19,14 +19,14 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/sign")
+@RequestMapping(HttpConstants.SIGN_CONTROL_PATH)
 public class SignController {
     @Autowired
     UserService userService;
     @Autowired
     private TokenManager tokenManager;
     @ResponseBody
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    @RequestMapping(value = HttpConstants.SIGN_UP, method = RequestMethod.POST)
     public HttpResult signUp(@RequestParam Map<String, String> params) {
         HttpResult result = new HttpResult();
         String userName = params.get(HttpConstants.NAME);
@@ -61,7 +61,7 @@ public class SignController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/signIn", method = RequestMethod.GET)
+    @RequestMapping(value = HttpConstants.SIGN_IN, method = RequestMethod.GET)
     public HttpResult signIn(@RequestParam(name = HttpConstants.PHONE) String phone, @RequestParam(HttpConstants.PASSWORD) String password) {
         UserEntity userEntity = userService.findByPhoneAndPassword(phone, password);
         HttpResult result = new HttpResult();
@@ -69,6 +69,8 @@ public class SignController {
             result.setResultCode(HttpConstants.FAILED);
             result.setMsg(PropertyUtil.getProperty("accountOrPasswordError"));
         } else {
+            TokenModel model = tokenManager.createToken(userEntity.getId());
+            result.getData().put(HttpConstants.TOKEN,model.getToken());
             result.setResultCode(HttpConstants.SUCCESS);
             result.getData().put(HttpConstants.USER, userEntity);
 
