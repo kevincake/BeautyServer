@@ -33,14 +33,20 @@ public class FollowRepository {
     }
     @Transactional
     public boolean save(FollowEntity followEntity) {
-        entityManager.persist(followEntity);
+        FollowEntity follow = getFollow(followEntity.getFollowerId(), followEntity.getBeFollowerId());
+        if (follow!=null){
+            follow.setBeFollowerId(followEntity.getBeFollowerId());
+            follow.setFollowerId(followEntity.getFollowerId());
+        }
+        entityManager.merge(followEntity);
+        entityManager.flush();
         return true;
     }
 
 
     public FollowEntity getFollow(long userId,long beFollowId){
         String sql = "select * from follow where followerId = :followerId and beFollowerId = :beFollowerId";
-        Query nativeQuery = entityManager.createNativeQuery(sql);
+        Query nativeQuery = entityManager.createNativeQuery(sql,FollowEntity.class);
         nativeQuery.setParameter("followerId", userId);
         nativeQuery.setParameter("beFollowerId", beFollowId);
         List<FollowEntity> resultList = nativeQuery.getResultList();
@@ -49,9 +55,14 @@ public class FollowRepository {
         }
         return resultList.get(0);
     }
-
+    @Transactional
     public void delete(Long id) {
-        entityManager.remove(id);
+
+        FollowEntity followEntity = entityManager.find(FollowEntity.class, id);
+        if (followEntity!=null){
+            entityManager.remove(followEntity);
+        }
+
     }
 
 

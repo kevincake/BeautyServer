@@ -29,4 +29,6 @@ public class HttpConstants {
     public static final String SIGN_UP = "/signUp/";
     public static final String COURSE_CONTROL_PATH = "/course";
     public static final String SIGN_CONTROL_PATH = "/sign";
+    public static final String FOLLOW_CONTROL_PATH = "/follow";
+    public static final String FOLLOW_STATUS_KEY = "followStatus";
 }
