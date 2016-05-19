@@ -18,6 +18,7 @@ public class HttpConstants {
     public static final String TOKEN = "token";
     public static final String COURSELIST = "courseList";
     public static final String USERID = "userId";
+    public static final Object SOCIAL_DETAILS = "socialDetails";
 
     //path的参数key
     public static final String USERID_PATH = "/{userId}";
@@ -31,4 +32,18 @@ public class HttpConstants {
     public static final String SIGN_CONTROL_PATH = "/sign";
     public static final String FOLLOW_CONTROL_PATH = "/follow";
     public static final String FOLLOW_STATUS_KEY = "followStatus";
+    public static final String COURSE_ID = "courseId";
+    public static final Object COURSE_ITEMLIST = "courseItemList";
+    public static final String COURSE_ITEMLIST_PATH = "/getCourseItems";
+    public static final String SOCIAL_CONTROL_PATH = "/social";
+    public static final String GET_SOCIALS = "/getSocials";
+
+    public static final String STATUS = "status";
+    public static final String SOCIAL_ID = "socialId";
+    public static final String LIKE_PATH = "/like";
+    public static final String USER_CONTROL_PATH = "/user";
+    public static final String UPDATE_USER = "/updateUser";
+    public static final String FOLLOW_LIST = "followEntities";
+    public static final String BEFOLLOW_LIST = "beFollowEntities";
+    public static final String LIKE_COURSE_PATH = "getLikeCourse";
 }

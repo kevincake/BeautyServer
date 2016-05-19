@@ -19,4 +19,7 @@ public class DataBaseConstants {
     public static final String PAGEINDEX_KEY = "pageIndex";
     public static final int FOLLOWED = 1;
     public static final int UNFOLLOWED = 0;
+    public static final String COURSE_ID = "courseId";
+    public static final int TEXT_TYPE = 1;
+    public static final int LIKE = 1;
 }

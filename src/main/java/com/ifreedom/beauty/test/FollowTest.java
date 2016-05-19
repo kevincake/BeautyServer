@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringApplicationConfiguration(classes = BeautyApplication.class)
 
 public class FollowTest {
+
     private RestTemplate template = new TestRestTemplate();
     @Test
     public void testUpdateStatus(){

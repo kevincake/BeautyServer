@@ -21,11 +21,11 @@ public class UserService implements IUserService {
 
     public UserEntity saveUser(UserEntity userEntity) {
         if (userEntity == null) {
-            LogUtil.error(LogConstants.DB, "save user is null");
+            LogUtil.error(LogConstants.DB, "saveOrUpdate user is null");
             return null;
         }
         if (userEntity.getName() == null) {
-            LogUtil.error(LogConstants.DB, "save user userName is null");
+            LogUtil.error(LogConstants.DB, "saveOrUpdate user userName is null");
             return null;
         }
         UserEntity save = userRepository.save(userEntity);

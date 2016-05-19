@@ -51,16 +51,19 @@ public class CourseTest {
             courseEntity.setType(1);
             courseEntity.setJoinMan(10L);
             courseEntity.setCourseDes("眼妆初级教程");
-            courseEntity.setCourseTime(System.currentTimeMillis());
-            courseEntity.setPic(new String[]{"http://beautybucket.oss-cn-shenzhen.aliyuncs.com/0a97a05bcbe921ffc412e7f061e16d00.jpg"});
+            courseEntity.setCourseTime(36000L);
+            courseEntity.setPic(new String[]{"http://beautybucket.oss-cn-shenzhen.aliyuncs.com/1462709283670.jpeg"});
             courseEntity.setPopular(DataBaseConstants.POPULAR);
             CourseEntity courseEntityResult = courseService.addCourse(courseEntity);
             CourseItemEntity courseItemEntity = new CourseItemEntity();
             courseItemEntity.setChapterIndex(1);
             courseItemEntity.setCourseId(courseEntityResult.getId());
             courseItemEntity.setChapterName("第一节");
+            courseItemEntity.setUrl("http://beautybucket.oss-cn-shenzhen.aliyuncs.com/video/test.mp4");
             courseItemService.save(courseItemEntity);
         }
 
     }
+
+
 }

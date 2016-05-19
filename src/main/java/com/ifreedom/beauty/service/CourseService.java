@@ -35,6 +35,12 @@ public class CourseService implements   ICourseService {
     }
 
     @Override
+    public List<PopularCourseBean> getLikeCourse(Long id, int pageIndex) {
+
+        return courseRepository.getLikeCourse(id,pageIndex);
+    }
+
+    @Override
     public List<CourseEntity> getCourseList(Long userId) {
         return null;
     }

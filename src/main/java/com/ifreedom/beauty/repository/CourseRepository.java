@@ -71,6 +71,30 @@ public class CourseRepository
         return courseEntityResult;
     }
 
+    public List<PopularCourseBean> getLikeCourse(Long userId, int pageIndex) {
+
+        String sql = "select *  from course where  id in (select courseId from courseLike where userId = :userId)";
+
+//        String sql = "select * from course where popular = :popular limit :pageIndex,:pageSize";
+        javax.persistence.Query nativeQuery = entityManager.createNativeQuery(sql, CourseEntity.class);
+
+        nativeQuery.setParameter(DataBaseConstants.PAGESIZE_KEY, DataBaseConstants.PAGE_SIZE);
+        nativeQuery.setParameter(DataBaseConstants.PAGEINDEX_KEY, (pageIndex-1)*DataBaseConstants.PAGE_SIZE);
+        List<CourseEntity> courseEntities = nativeQuery.getResultList();
+        List<PopularCourseBean> popularCourseList = new ArrayList<>();
+        for (CourseEntity courseEntity :
+                courseEntities) {
+            PopularCourseBean popularCourseBean = new PopularCourseBean();
+            popularCourseBean.setCourse(courseEntity);
+            popularCourseBean.setIsFollow(followService.isFollow(userId,courseEntity.getUserId()));
+            //user
+            UserEntity user = userService.getUser(courseEntity.getUserId());
+            popularCourseBean.setUser(user);
+            popularCourseList.add(popularCourseBean);
+        }
+        return popularCourseList;
+    }
+
     ;
 
 

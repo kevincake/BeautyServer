@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,8 +23,12 @@ public class UserRepository {
         String sql = "select * from user where phone = :phone";
         Query nativeQuery = entityManager.createNativeQuery(sql, UserEntity.class);
         nativeQuery.setParameter("phone",phone);
-        UserEntity userEntity = (UserEntity) nativeQuery.getSingleResult();
-        return userEntity;
+        List<UserEntity> resultList = nativeQuery.getResultList();
+        if (resultList.isEmpty()){
+            return null;
+        }else{
+            return resultList.get(0);
+        }
     };
 
     public UserEntity findByPhoneAndPassword(String phone, String password){
@@ -44,14 +49,12 @@ public class UserRepository {
         return entityManager.find(UserEntity.class,userId);
     }
 
+    @Transactional
     public UserEntity save(UserEntity userEntity){
         if (userEntity==null){
             return null;
         }
-        entityManager.getTransaction().begin();;
-        entityManager.persist(userEntity);
-        entityManager.getTransaction().commit();
-        return findUserByPhone(userEntity.getPhone());
+        return entityManager.merge(userEntity);
     }
 
 

@@ -19,11 +19,12 @@ public class CourseItemRepository {
     EntityManager entityManager;
 
     @Transactional
-    public CourseItemEntity save(CourseItemEntity itemEntity) {
+    public CourseItemEntity saveOrUpdate(CourseItemEntity itemEntity) {
         if (itemEntity == null) {
             return null;
         }
         entityManager.persist(itemEntity);
+        entityManager.flush();
         return entityManager.find(CourseItemEntity.class, itemEntity.getId());
     }
 }

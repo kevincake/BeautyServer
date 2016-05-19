@@ -1,14 +1,13 @@
 package com.ifreedom.beauty.service;
 
 import com.ifreedom.beauty.entity.FollowEntity;
+import com.ifreedom.beauty.entity.UserEntity;
 import com.ifreedom.beauty.iservice.IFollowService;
 import com.ifreedom.beauty.repository.FollowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import java.util.List;
 
 /**
  * @atuhor:eavawu
@@ -46,5 +45,19 @@ public class FollowService implements IFollowService {
         }
         return true;
 
+    }
+
+    @Override
+    public List<UserEntity> getFollowers(Long id) {
+        return followRepository.getFollowers(id);
+    }
+
+    @Override
+    public List<UserEntity> getBeFollowers(Long id) {
+        return followRepository.getBeFollowers(id);
+    }
+
+    public List<Long> getFollowIds(Long userId) {
+        return followRepository.getFollowIds(userId);
     }
 }

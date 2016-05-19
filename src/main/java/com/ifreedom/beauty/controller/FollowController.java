@@ -38,4 +38,17 @@ public class FollowController {
         httpResult.setResultCode(followResult ? HttpConstants.SUCCESS : HttpConstants.FAILED);
         return httpResult;
     }
+
+    @Authorization
+    @ResponseBody
+    @RequestMapping(value = HttpConstants.USERID_PATH, method = RequestMethod.GET)
+    public HttpResult getFollowList(@CurrentUser UserEntity userEntity){
+        HttpResult result = new HttpResult();
+        result.setResultCode(HttpConstants.SUCCESS);
+        result.getData().put(HttpConstants.FOLLOW_LIST,followService.getFollowers(userEntity.getId()));
+        result.getData().put(HttpConstants.BEFOLLOW_LIST,followService.getBeFollowers(userEntity.getId()));
+        return result;
+    }
+
+
 }

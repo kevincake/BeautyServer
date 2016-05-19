@@ -16,4 +16,6 @@ public interface ICourseService {
     public List<PopularCourseBean> getPopularCourseList(long userid, int popular, int pageIndex);
 
     CourseEntity addCourse(CourseEntity courseEntity);
+
+    List<PopularCourseBean> getLikeCourse(Long id,  int pageIndex);
 }
