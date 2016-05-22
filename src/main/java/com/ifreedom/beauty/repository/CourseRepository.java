@@ -4,6 +4,7 @@ import com.ifreedom.beauty.bean.PopularCourseBean;
 import com.ifreedom.beauty.constants.DataBaseConstants;
 import com.ifreedom.beauty.constants.HttpConstants;
 import com.ifreedom.beauty.entity.CourseEntity;
+import com.ifreedom.beauty.entity.CourseLikeEntity;
 import com.ifreedom.beauty.entity.UserEntity;
 import com.ifreedom.beauty.service.FollowService;
 import com.ifreedom.beauty.service.UserService;
@@ -73,11 +74,11 @@ public class CourseRepository
 
     public List<PopularCourseBean> getLikeCourse(Long userId, int pageIndex) {
 
-        String sql = "select *  from course where  id in (select courseId from courseLike where userId = :userId)";
+        String sql = "select *  from course where  id in (select courseId from courseLike where userId = :userId) limit :pageIndex,:pageSize";
 
 //        String sql = "select * from course where popular = :popular limit :pageIndex,:pageSize";
         javax.persistence.Query nativeQuery = entityManager.createNativeQuery(sql, CourseEntity.class);
-
+        nativeQuery.setParameter(DataBaseConstants.USER_ID,userId);
         nativeQuery.setParameter(DataBaseConstants.PAGESIZE_KEY, DataBaseConstants.PAGE_SIZE);
         nativeQuery.setParameter(DataBaseConstants.PAGEINDEX_KEY, (pageIndex-1)*DataBaseConstants.PAGE_SIZE);
         List<CourseEntity> courseEntities = nativeQuery.getResultList();
@@ -93,6 +94,12 @@ public class CourseRepository
             popularCourseList.add(popularCourseBean);
         }
         return popularCourseList;
+    }
+
+
+    @Transactional
+    public void addCourseLike(CourseLikeEntity courseLikeEntity) {
+        entityManager.merge(courseLikeEntity);
     }
 
     ;

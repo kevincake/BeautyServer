@@ -22,4 +22,5 @@ public class DataBaseConstants {
     public static final String COURSE_ID = "courseId";
     public static final int TEXT_TYPE = 1;
     public static final int LIKE = 1;
+    public static final String USER_ID = "userId";
 }

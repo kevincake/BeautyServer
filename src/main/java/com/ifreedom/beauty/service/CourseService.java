@@ -2,6 +2,7 @@ package com.ifreedom.beauty.service;
 
 import com.ifreedom.beauty.bean.PopularCourseBean;
 import com.ifreedom.beauty.entity.CourseEntity;
+import com.ifreedom.beauty.entity.CourseLikeEntity;
 import com.ifreedom.beauty.iservice.ICourseService;
 import com.ifreedom.beauty.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,13 @@ public class CourseService implements   ICourseService {
 
         return courseRepository.getLikeCourse(id,pageIndex);
     }
+
+    public List<PopularCourseBean> addLikeCourse(CourseLikeEntity courseLikeEntity){
+        courseRepository.addCourseLike(courseLikeEntity);
+
+        return null;
+    }
+
 
     @Override
     public List<CourseEntity> getCourseList(Long userId) {

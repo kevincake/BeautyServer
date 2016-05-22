@@ -21,6 +21,5 @@ public interface ISocialService {
     SocialEntity addSocial(SocialEntity socialEntity);
 
 
-
-
+    List<SocialDetailBean> getMineSocial(Long userId);
 }

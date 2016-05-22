@@ -1,6 +1,7 @@
 package com.ifreedom.beauty.repository;
 
 import com.ifreedom.beauty.bean.SocialDetailBean;
+import com.ifreedom.beauty.constants.DataBaseConstants;
 import com.ifreedom.beauty.entity.CommentEntity;
 import com.ifreedom.beauty.entity.LikeEntity;
 import com.ifreedom.beauty.entity.SocialEntity;
@@ -90,5 +91,28 @@ public class SocialRepository {
     @Transactional
     public SocialEntity addSocial(SocialEntity socialEntity) {
         return entityManager.merge(socialEntity);
+    }
+
+    public List<SocialDetailBean> getMineSocial(Long userId) {
+
+
+        String sql = "select * from social where userId = :userId";
+        Query nativeQuery = entityManager.createNativeQuery(sql, SocialEntity.class);
+        nativeQuery.setParameter(DataBaseConstants.USER_ID,userId);
+        List<SocialEntity> resultList = nativeQuery.getResultList();
+        List<SocialDetailBean> socialDetailBeans = new ArrayList<>();
+        for (SocialEntity socialEntity:
+                resultList) {
+            SocialDetailBean socialDetailBean = new SocialDetailBean();
+            socialDetailBean.setSocialEntity(socialEntity);
+            List<LikeEntity> likes = likeService.getLikes(socialEntity.getId());
+            socialDetailBean.setLikeEntities(likes);
+            List<CommentEntity> comments = commentService.getComments(socialEntity.getId());
+            socialDetailBean.setCommentsEntities(comments);
+            socialDetailBean.setUser(userService.getUser(socialEntity.getUserId()));
+            socialDetailBeans.add(socialDetailBean);
+
+        }
+        return socialDetailBeans;
     }
 }

@@ -91,6 +91,19 @@ public class CourseController {
         result.setResultCode(HttpConstants.SUCCESS);
         return result;
     }
+//
+//    @Authorization
+//    @ResponseBody
+//    @RequestMapping(value = HttpConstants.LIKE, method = RequestMethod.POST)
+//    public HttpResult getLikeCourse() {
+//        HttpResult result = new HttpResult();
+//        result.setResultCode(HttpConstants.SUCCESS);
+//        return result;
+//    }
+
+
+
+
 
 
 }

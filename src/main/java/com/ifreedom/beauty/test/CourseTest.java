@@ -7,6 +7,7 @@ import com.ifreedom.beauty.constants.DataBaseConstants;
 import com.ifreedom.beauty.constants.HttpConstants;
 import com.ifreedom.beauty.entity.CourseEntity;
 import com.ifreedom.beauty.entity.CourseItemEntity;
+import com.ifreedom.beauty.entity.CourseLikeEntity;
 import com.ifreedom.beauty.service.CourseItemService;
 import com.ifreedom.beauty.service.CourseService;
 import org.junit.Test;
@@ -34,6 +35,7 @@ public class CourseTest {
     CourseService courseService;
     @Autowired
     CourseItemService courseItemService;
+
     @Test
     public void testGetCourse(){
         String url = TestConstants.BASE_URL+HttpConstants.COURSE_CONTROL_PATH;
@@ -64,6 +66,17 @@ public class CourseTest {
         }
 
     }
+    @Test
+    public void addCourseLike(){
+        for (int i=0;i<10;i++){
+            CourseLikeEntity courseLikeEntity = new CourseLikeEntity();
+            courseLikeEntity.setUserId(1L);
+            courseLikeEntity.setCourseId(41L);
+            courseService.addLikeCourse(courseLikeEntity);
+        }
+
+    }
+
 
 
 }

@@ -53,4 +53,15 @@ public class SocialController {
         result.setResultCode(HttpConstants.SUCCESS);
         return  result;
     }
+
+    @Authorization
+    @ResponseBody
+    @RequestMapping(value ="/getMineSocial",method = RequestMethod.POST)
+    public HttpResult getMineSocial(@CurrentUser UserEntity userEntity){
+        HttpResult result = new HttpResult();
+        result.setResultCode(HttpConstants.SUCCESS);
+        result.getData().put(HttpConstants.SOCIAL_DETAILS,socialService.getMineSocial(userEntity.getId()));
+        return result;
+    }
+
 }

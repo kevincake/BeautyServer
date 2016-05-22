@@ -46,6 +46,8 @@ public class SocialService implements ISocialService {
         return socialRepository.updateSocialDetail(socialEntity);
     }
 
+
+
     @Override
     public SocialDetailBean deleteSocailDetail(Long detailId) {
         return socialRepository.deleteSocialDetail(detailId);
@@ -54,5 +56,10 @@ public class SocialService implements ISocialService {
     @Override
     public SocialEntity addSocial(SocialEntity socialEntity) {
         return socialRepository.addSocial(socialEntity);
+    }
+
+    @Override
+    public List<SocialDetailBean> getMineSocial(Long userId) {
+        return  socialRepository.getMineSocial(userId);
     }
 }

@@ -46,4 +46,7 @@ public class HttpConstants {
     public static final String FOLLOW_LIST = "followEntities";
     public static final String BEFOLLOW_LIST = "beFollowEntities";
     public static final String LIKE_COURSE_PATH = "getLikeCourse";
+    public static final String ARTICLE_CONTROL_PATH = "/article";
+    public static final String ARTICLE_LIST = "articleList";
+    public static final String MINE_SOCIAL = "mineSocial";
 }
