@@ -39,7 +39,7 @@ public class SocialServiceTest {
 
         for(int i=0;i<10;i++){
             SocialEntity socialEntity = new SocialEntity();
-            socialEntity.setPic(new String[]{"http://beautybucket.oss-cn-shenzhen.aliyuncs.com/1462709283670.jpeg"});
+//            socialEntity.setPic(new String[]{"http://beautybucket.oss-cn-shenzhen.aliyuncs.com/1462709283670.jpeg"});
             socialEntity.setType(DataBaseConstants.TEXT_TYPE);
             socialEntity.setDeployTime(System.currentTimeMillis());
             socialEntity.setContent("hello world");

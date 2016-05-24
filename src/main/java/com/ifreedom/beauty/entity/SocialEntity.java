@@ -14,7 +14,6 @@ public class SocialEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String pic[];
     private String content;
     private Long deployTime;
     private int type; //类型
@@ -36,13 +35,6 @@ public class SocialEntity {
         this.id = id;
     }
 
-    public String[] getPic() {
-        return pic;
-    }
-
-    public void setPic(String[] pic) {
-        this.pic = pic;
-    }
 
     public String getContent() {
         return content;

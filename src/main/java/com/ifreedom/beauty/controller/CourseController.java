@@ -85,8 +85,17 @@ public class CourseController {
 
     @Authorization
     @ResponseBody
-    @RequestMapping(value = HttpConstants.USERID_PATH, method = RequestMethod.POST)
-    public HttpResult addCourse() {
+    @RequestMapping(value = HttpConstants.ADD_COURSE, method = RequestMethod.POST)
+    public HttpResult addCourse(@CurrentUser UserEntity userEntity,@RequestParam("courseDes")String courseDes,@RequestParam("courseName")String courseName
+            ,@RequestParam("courseTime")Long courseTime,@RequestParam("type")int type) {
+        CourseEntity courseEntity = new CourseEntity();
+        courseEntity.setCourseTime(courseTime);
+        courseEntity.setCourseDes(courseDes);
+        courseEntity.setPopular(DataBaseConstants.POPULAR);
+        courseEntity.setUserId(userEntity.getId());
+        courseEntity.setDeployTime(System.currentTimeMillis());
+        courseEntity.setCourseName(courseName);
+        courseService.addCourse(courseEntity);
         HttpResult result = new HttpResult();
         result.setResultCode(HttpConstants.SUCCESS);
         return result;

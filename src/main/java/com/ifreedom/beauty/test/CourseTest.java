@@ -49,7 +49,7 @@ public class CourseTest {
         for (int i=0;i<10;i++){
             CourseEntity courseEntity = new CourseEntity();
             courseEntity.setCourseName("course"+i);
-            courseEntity.setUserId(10L);
+            courseEntity.setUserId(1L);
             courseEntity.setType(1);
             courseEntity.setJoinMan(10L);
             courseEntity.setCourseDes("眼妆初级教程");

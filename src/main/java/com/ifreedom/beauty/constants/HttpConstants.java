@@ -1,5 +1,7 @@
 package com.ifreedom.beauty.constants;
 
+import java.util.Map;
+
 /**
  * @atuhor:eavawu
  * @date:4/28/16
@@ -49,4 +51,6 @@ public class HttpConstants {
     public static final String ARTICLE_CONTROL_PATH = "/article";
     public static final String ARTICLE_LIST = "articleList";
     public static final String MINE_SOCIAL = "mineSocial";
+    public static final String ADD_COURSE = "/addCourse";
+    public static final String SOCIAL = "social" ;
 }
