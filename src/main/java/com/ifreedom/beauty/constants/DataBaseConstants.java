@@ -24,4 +24,6 @@ public class DataBaseConstants {
     public static final int LIKE = 1;
     public static final String USER_ID = "userId";
     public static final int SOCIAL_TYPE = 1;
+    public static final String TYPE_KEY = "type";
+    public static final String BELONGID_KEY = "belongId";
 }

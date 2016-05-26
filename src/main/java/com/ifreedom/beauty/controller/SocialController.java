@@ -72,22 +72,23 @@ public class SocialController {
 
     @Authorization
     @ResponseBody
-    @RequestMapping(value = "/addSocial", method = RequestMethod.POST)
+    @RequestMapping(value = "/deploySocial", method = RequestMethod.POST)
     public HttpResult addSocial(@CurrentUser UserEntity userEntity, @RequestParam("content") String content, @RequestParam("type") int type, @RequestParam("pic") String[] pic) {
         SocialEntity socialEntity = new SocialEntity();
         socialEntity.setContent(content);
         socialEntity.setUserId(userEntity.getId());
         socialEntity.setType(type);
         socialEntity.setDeployTime(System.currentTimeMillis());
+        SocialEntity saveSocial = socialService.addSocial(socialEntity);
         for (String picItem : pic
                 ) {
             PicEntity picEntity = new PicEntity();
             picEntity.setType(DataBaseConstants.SOCIAL_TYPE);
-            picEntity.setBelongId(socialEntity.getId());
+            picEntity.setBelongId(saveSocial.getId());
             picEntity.setUrl(picItem);
             picService.addPic(picEntity);
         }
-        SocialEntity saveSocial = socialService.addSocial(socialEntity);
+
         HttpResult result = new HttpResult();
         result.setResultCode(HttpConstants.SUCCESS);
         result.getData().put(HttpConstants.SOCIAL,socialService.getSocialDetails(saveSocial.getId()));

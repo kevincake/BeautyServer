@@ -1,6 +1,7 @@
 package com.ifreedom.beauty.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @atuhor:eavawu
@@ -18,6 +19,16 @@ public class SocialEntity {
     private Long deployTime;
     private int type; //类型
     private String url;
+    @Transient
+    private List<String> pic;
+
+    public List<String> getPic() {
+        return pic;
+    }
+
+    public void setPic(List<String> pic) {
+        this.pic = pic;
+    }
 
     public Long getUserId() {
         return userId;

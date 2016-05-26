@@ -5,10 +5,7 @@ import com.ifreedom.beauty.constants.DataBaseConstants;
 import com.ifreedom.beauty.entity.CommentEntity;
 import com.ifreedom.beauty.entity.LikeEntity;
 import com.ifreedom.beauty.entity.SocialEntity;
-import com.ifreedom.beauty.service.CommentService;
-import com.ifreedom.beauty.service.FollowService;
-import com.ifreedom.beauty.service.LikeService;
-import com.ifreedom.beauty.service.UserService;
+import com.ifreedom.beauty.service.*;
 import com.ifreedom.beauty.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,47 +34,57 @@ public class SocialRepository {
     CommentService commentService;
     @Autowired
     UserService userService;
+    @Autowired
+    PicService picService;
+
+
     public List<SocialDetailBean> getSocialDetails(Long userid) {
 
-        List<Long> followIds = followService.getFollowIds(userid);
-        if (followIds==null||followIds.isEmpty()){
-            return null;
-        }
-        String inParamByIds = StringUtils.getInParamByIds(followIds);
-//        String sql = "select * from social where userId in (:ids)";
+//        List<Long> followIds = followService.getFollowIds(userid);
+//        if (followIds == null || followIds.isEmpty()) {
+//            return null;
+//        }
+//        String inParamByIds = StringUtils.getInParamByIds(followIds);
         String sql = "select * from social";
         Query nativeQuery = entityManager.createNativeQuery(sql, SocialEntity.class);
-//        nativeQuery.setParameter("ids",inParamByIds);
         List<SocialEntity> resultList = nativeQuery.getResultList();
-        List<SocialDetailBean> socialDetailBeans = new ArrayList<>();
-        for (SocialEntity socialEntity:
-             resultList) {
-            SocialDetailBean socialDetailBean = new SocialDetailBean();
-            socialDetailBean.setSocialEntity(socialEntity);
-            List<LikeEntity> likes = likeService.getLikes(socialEntity.getId());
-            socialDetailBean.setLikeEntities(likes);
-            List<CommentEntity> comments = commentService.getComments(socialEntity.getId());
-            socialDetailBean.setCommentsEntities(comments);
-            socialDetailBean.setUser(userService.getUser(socialEntity.getUserId()));
-            socialDetailBeans.add(socialDetailBean);
-
-
-
-
-        }
-        return socialDetailBeans;
+        return getSocialDetails(resultList);
     }
+
 
     public LikeEntity likeSocial(Long userId, Long socialId) {
         return null;
     }
 
     public SocialDetailBean getSocialDetail(Long socialId) {
-        return null;
+        SocialEntity social = getSocial(socialId);
+        return getSocialDetail(social);
+    }
+
+    private SocialDetailBean getSocialDetail(SocialEntity socialEntity) {
+        SocialDetailBean socialDetailBean = new SocialDetailBean();
+        socialDetailBean.setSocialEntity(socialEntity);
+        List<LikeEntity> likes = likeService.getLikes(socialEntity.getId());
+        socialDetailBean.setLikeEntities(likes);
+        List<CommentEntity> comments = commentService.getComments(socialEntity.getId());
+        socialDetailBean.setCommentsEntities(comments);
+        socialDetailBean.setUser(userService.getUser(socialEntity.getUserId()));
+        List<String> pictures = picService.getPictures(DataBaseConstants.SOCIAL_TYPE, socialEntity.getId());
+        socialEntity.setPic(pictures);
+        return socialDetailBean;
+    }
+
+    private List<SocialDetailBean> getSocialDetails(final List<SocialEntity> socialEntities) {
+        List<SocialDetailBean> socialDetailBeans = new ArrayList<>();
+        for (SocialEntity socialEntity :
+                socialEntities) {
+            socialDetailBeans.add(getSocialDetail(socialEntity));
+        }
+        return socialDetailBeans;
     }
 
     public SocialEntity getSocial(Long socialId) {
-        return null;
+        return entityManager.find(SocialEntity.class, socialId);
     }
 
     public SocialEntity updateSocialDetail(SocialEntity socialEntity) {
@@ -94,25 +101,10 @@ public class SocialRepository {
     }
 
     public List<SocialDetailBean> getMineSocial(Long userId) {
-
-
         String sql = "select * from social where userId = :userId";
         Query nativeQuery = entityManager.createNativeQuery(sql, SocialEntity.class);
-        nativeQuery.setParameter(DataBaseConstants.USER_ID,userId);
+        nativeQuery.setParameter(DataBaseConstants.USER_ID, userId);
         List<SocialEntity> resultList = nativeQuery.getResultList();
-        List<SocialDetailBean> socialDetailBeans = new ArrayList<>();
-        for (SocialEntity socialEntity:
-                resultList) {
-            SocialDetailBean socialDetailBean = new SocialDetailBean();
-            socialDetailBean.setSocialEntity(socialEntity);
-            List<LikeEntity> likes = likeService.getLikes(socialEntity.getId());
-            socialDetailBean.setLikeEntities(likes);
-            List<CommentEntity> comments = commentService.getComments(socialEntity.getId());
-            socialDetailBean.setCommentsEntities(comments);
-            socialDetailBean.setUser(userService.getUser(socialEntity.getUserId()));
-            socialDetailBeans.add(socialDetailBean);
-
-        }
-        return socialDetailBeans;
+        return getSocialDetails(resultList);
     }
 }

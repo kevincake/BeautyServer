@@ -5,11 +5,11 @@ import com.ifreedom.beauty.entity.UserEntity;
 import com.ifreedom.beauty.repository.UserRepository;
 import com.ifreedom.beauty.iservice.IUserService;
 import com.ifreedom.beauty.util.LogUtil;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
  * Created by eavawu on 4/28/16.

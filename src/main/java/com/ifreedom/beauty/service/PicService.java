@@ -6,6 +6,8 @@ import com.ifreedom.beauty.repository.PicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @atuhor:eavawu
  * @date:5/25/16
@@ -23,5 +25,11 @@ public class PicService implements IPicService{
     @Override
     public PicEntity deletePic(PicEntity picEntity) {
         return picRepository.deletePic(picEntity);
+    }
+
+    @Override
+    public List<String> getPictures(int type, Long id) {
+
+        return picRepository.getPictures(type,id);
     }
 }
