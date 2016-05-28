@@ -2,3 +2,6 @@
 .idea/
 target/
 BeautyServer.iml
+
+out/artifacts/BeautyServer_jar/BeautyServer.jar
+out/

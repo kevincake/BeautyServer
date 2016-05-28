@@ -26,4 +26,5 @@ public class DataBaseConstants {
     public static final int SOCIAL_TYPE = 1;
     public static final String TYPE_KEY = "type";
     public static final String BELONGID_KEY = "belongId";
+    public static final Long GOODS_PAINT_TYPE = 1L;
 }

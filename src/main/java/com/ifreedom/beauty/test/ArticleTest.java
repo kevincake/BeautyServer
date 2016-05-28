@@ -7,7 +7,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * @atuhor:eavawu
@@ -15,8 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @todo:
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-
 @SpringApplicationConfiguration(classes = BeautyApplication.class)
+@WebIntegrationTest
 public class ArticleTest {
     @Autowired
     ArticleService articleService;
@@ -26,13 +29,13 @@ public class ArticleTest {
         for (int i = 0; i < 10; i++) {
             ArticleEntity entity = new ArticleEntity();
             entity.setCommentCount(10L + i);
-            entity.setContent("上辈子我好像在哪见过");
+            entity.setContent("测不出bug你请我吃饭");
             entity.setDeployTime(System.currentTimeMillis());
             entity.setIsPopular(1);
             entity.setReadCount(10L);
             entity.setReplyCount(10L + i);
             entity.setUserId(1L);
-            entity.setTitle("这是Title");
+            entity.setTitle("小伙,测一发");
             articleService.addArticle(entity);
 
         }

@@ -7,18 +7,22 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.web.WebApplicationInitializer;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 /**
  * @atuhor:eavawu
  * @date:4/29/16
  * @todo:
  */
-public class ApplicationStartUpListener implements ApplicationListener<ApplicationStartedEvent> {
+public class ApplicationStartUpListener implements WebApplicationInitializer {
 
 
     @Override
-    public void onApplicationEvent(ApplicationStartedEvent event) {
+    public void onStartup(ServletContext servletContext) throws ServletException {
         PropertyUtil.loadAllProperties();
-        System.out.println("ApplicationStartUpListener EXEC");
+        System.out.println("ApplicationStartUpListener");
     }
 }

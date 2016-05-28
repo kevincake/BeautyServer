@@ -25,7 +25,6 @@ public class BeautyApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
 
         SpringApplication application = new SpringApplication(BeautyApplication.class);
-        application.addListeners(new ApplicationStartUpListener());
         application.run(args);
     }
     @Override

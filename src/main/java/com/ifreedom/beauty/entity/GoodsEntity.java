@@ -1,11 +1,19 @@
 package com.ifreedom.beauty.entity;
 
+import com.ifreedom.beauty.bean.GoodsDetail;
+
+import javax.persistence.*;
+
 /**
  * @atuhor:eavawu
  * @date:5/26/16
  * @todo:
  */
+@Entity
+@Table(name = "goods")
 public class GoodsEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long goodsType;
     private String goodsName;
@@ -13,6 +21,17 @@ public class GoodsEntity {
     private String goodsDes;
     private String unit;
     private long star;
+
+    @Transient
+    GoodsExtEntity goodsExtEntity;
+
+    public GoodsExtEntity getGoodsExtEntity() {
+        return goodsExtEntity;
+    }
+
+    public void setGoodsExtEntity(GoodsExtEntity goodsExtEntity) {
+        this.goodsExtEntity = goodsExtEntity;
+    }
 
     public Long getId() {
         return id;
