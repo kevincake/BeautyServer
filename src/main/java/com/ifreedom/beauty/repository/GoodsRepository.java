@@ -28,4 +28,7 @@ public class GoodsRepository {
         return entityManager.merge(goodsEntity);
     }
 
+    public GoodsEntity getGoods(Long goodsId) {
+        return entityManager.find(GoodsEntity.class,goodsId);
+    }
 }

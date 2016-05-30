@@ -4,16 +4,17 @@ import javax.persistence.*;
 
 /**
  * @atuhor:eavawu
- * @date:5/26/16
- * @todo:商品和课程的中间表
+ * @date:5/30/16
+ * @todo:商品的属性key
  */
 @Entity
-@Table(name = "courseGoods")
-public class CourseGoodsEntity {
+@Table(name = "goodsPropertyKey")
+public class GoodsPropertyKeyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long courseId;
+
+    private String propertyName;
     private Long goodsId;
 
     public Long getId() {
@@ -24,12 +25,12 @@ public class CourseGoodsEntity {
         this.id = id;
     }
 
-    public Long getCourseId() {
-        return courseId;
+    public String getPropertyName() {
+        return propertyName;
     }
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
     }
 
     public Long getGoodsId() {

@@ -21,4 +21,11 @@ public class GoodsService implements IGoodsService {
 
         return goodsRepository.addGoods(goodsEntity);
     }
+
+    @Override
+    public GoodsEntity getGoods(Long goodsId) {
+        return goodsRepository.getGoods(goodsId);
+    }
+
+
 }

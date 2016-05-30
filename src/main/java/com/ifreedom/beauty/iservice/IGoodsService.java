@@ -10,4 +10,5 @@ import com.ifreedom.beauty.entity.GoodsEntity;
  */
 public interface IGoodsService {
     GoodsEntity addGoods(GoodsEntity goodsEntity);
+    GoodsEntity getGoods(Long goodsId);
 }
