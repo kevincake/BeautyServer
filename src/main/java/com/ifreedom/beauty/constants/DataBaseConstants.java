@@ -27,4 +27,8 @@ public class DataBaseConstants {
     public static final String TYPE_KEY = "type";
     public static final String BELONGID_KEY = "belongId";
     public static final Long GOODS_PAINT_TYPE = 1L;
+    //类型
+    public static final int GOODS_PIC_TYPE = 2;
+    public static final int FAILED = 0;
+    public static final int SUCCESS = 1;
 }

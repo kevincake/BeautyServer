@@ -1,8 +1,10 @@
 package com.ifreedom.beauty.entity;
 
 import com.ifreedom.beauty.bean.GoodsDetail;
+import com.ifreedom.beauty.bean.GoodsProperty;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @atuhor:eavawu
@@ -22,8 +24,34 @@ public class GoodsEntity {
     private String unit;
     private long star;
 
+    public List<String> getPics() {
+        return pics;
+    }
+
+    public void setPics(List<String> pics) {
+        this.pics = pics;
+    }
+
     @Transient
-    GoodsExtEntity goodsExtEntity;
+    private List<String> pics;
+    @Transient
+    private Long surplus;//库存
+
+    public Long getSurplus() {
+        return surplus;
+    }
+
+    public void setSurplus(Long surplus) {
+        this.surplus = surplus;
+    }
+
+    @Transient
+    private GoodsProperty goodsProperty; //查询的时候,带出数据用
+    @Transient
+    private GoodsExtEntity goodsExtEntity;//查询的时候,带出数据用
+
+
+
 
     public GoodsExtEntity getGoodsExtEntity() {
         return goodsExtEntity;
@@ -31,6 +59,14 @@ public class GoodsEntity {
 
     public void setGoodsExtEntity(GoodsExtEntity goodsExtEntity) {
         this.goodsExtEntity = goodsExtEntity;
+    }
+
+    public GoodsProperty getGoodsProperty() {
+        return goodsProperty;
+    }
+
+    public void setGoodsProperty(GoodsProperty goodsProperty) {
+        this.goodsProperty = goodsProperty;
     }
 
     public Long getId() {

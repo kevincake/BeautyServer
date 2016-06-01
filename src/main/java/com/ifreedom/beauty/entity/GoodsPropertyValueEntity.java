@@ -13,9 +13,26 @@ public class GoodsPropertyValueEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long goodId;
+    private Long goodsId;
     private Long goodsProperKeyId;
-    private Long value;
+    private String propertyValue;
+    private String pic;
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
+    public String getPropertyValue() {
+        return propertyValue;
+    }
+
+    public void setPropertyValue(String propertyValue) {
+        this.propertyValue = propertyValue;
+    }
 
     public Long getId() {
         return id;
@@ -25,12 +42,12 @@ public class GoodsPropertyValueEntity {
         this.id = id;
     }
 
-    public Long getGoodId() {
-        return goodId;
+    public Long getGoodsId() {
+        return goodsId;
     }
 
-    public void setGoodId(Long goodId) {
-        this.goodId = goodId;
+    public void setGoodsId(Long goodsId) {
+        this.goodsId = goodsId;
     }
 
     public Long getGoodsProperKeyId() {
@@ -41,11 +58,6 @@ public class GoodsPropertyValueEntity {
         this.goodsProperKeyId = goodsProperKeyId;
     }
 
-    public Long getValue() {
-        return value;
-    }
 
-    public void setValue(Long value) {
-        this.value = value;
-    }
+
 }

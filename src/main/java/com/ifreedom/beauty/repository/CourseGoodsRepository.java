@@ -1,8 +1,15 @@
 package com.ifreedom.beauty.repository;
 
+import com.ifreedom.beauty.bean.GoodsProperty;
+import com.ifreedom.beauty.constants.DataBaseConstants;
+import com.ifreedom.beauty.entity.CourseGoodsEntity;
 import com.ifreedom.beauty.entity.GoodsEntity;
+import com.ifreedom.beauty.entity.GoodsPropertyKeyEntity;
 import com.ifreedom.beauty.entity.LikeEntity;
+import com.ifreedom.beauty.service.GoodsPropKeyService;
+import com.ifreedom.beauty.service.GoodsPropValueService;
 import com.ifreedom.beauty.service.GoodsService;
+import com.ifreedom.beauty.service.PicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,24 +31,38 @@ public class CourseGoodsRepository {
     EntityManager entityManager;
     @Autowired
     GoodsService goodsService;
+    @Autowired
+    GoodsPropKeyService keyService;
+    @Autowired
+    GoodsPropValueService valueService;
+    @Autowired
+    PicService picService;
 
     //根据课程获取商品列表
     @Transactional
     public List<GoodsEntity> getGoodsList(Long courseId) {
-        String sql = "select goodsId from courseGoods where courseId = :courseId";
-        Query nativeQuery = entityManager.createNativeQuery(sql);
-        List<Long> resultList = nativeQuery.getResultList();
-        if (resultList.isEmpty()) {
-            return null;
-        } else {
-            List<GoodsEntity> goodsList = new ArrayList<>();
-            for (Long goodsId : resultList) {
-                GoodsEntity goods = goodsService.getGoods(goodsId);
-                goodsList.add(goods);
-            }
-            return goodsList;
+        String sql = "select * from goods where (select goodsId from courseGoods where courseId = :courseId)";
+        Query nativeQuery = entityManager.createNativeQuery(sql, GoodsEntity.class);
+        nativeQuery.setParameter("courseId", courseId);
+        List<GoodsEntity> resultList = nativeQuery.getResultList();
+        for (GoodsEntity goodsEntity : resultList) {
+            //设置图片
+            List<String> pictures = picService.getPictures(DataBaseConstants.GOODS_PIC_TYPE, goodsEntity.getId());
+            goodsEntity.setPics(pictures);
+            //设置属性
+            GoodsProperty goodsProperty = new GoodsProperty();
+            GoodsPropertyKeyEntity goodsPropKey = keyService.getGoodsPropKey(goodsEntity.getId());
+            goodsProperty.setPropertyKey(goodsPropKey);
+            goodsProperty.setPropertyValues(valueService.getGoodsPropValueList(goodsEntity.getId(), goodsPropKey.getId()));
+            goodsEntity.setGoodsProperty(goodsProperty);
         }
+
+        return resultList;
+
     }
 
-
+    @Transactional
+    public CourseGoodsEntity addCourseGoods(CourseGoodsEntity courseGoodsEntity) {
+        return entityManager.merge(courseGoodsEntity);
+    }
 }

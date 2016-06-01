@@ -53,4 +53,5 @@ public class HttpConstants {
     public static final String MINE_SOCIAL = "mineSocial";
     public static final String ADD_COURSE = "/addCourse";
     public static final String SOCIAL = "social" ;
+    public static final Object GOODSLIST = "goodsList";
 }

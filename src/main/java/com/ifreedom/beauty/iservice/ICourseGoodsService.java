@@ -1,5 +1,6 @@
 package com.ifreedom.beauty.iservice;
 
+import com.ifreedom.beauty.entity.CourseGoodsEntity;
 import com.ifreedom.beauty.entity.GoodsEntity;
 
 import java.util.List;
@@ -11,4 +12,6 @@ import java.util.List;
  */
 public interface ICourseGoodsService {
     List<GoodsEntity> getGoosList(Long courseId);
+
+    CourseGoodsEntity addCourseGoods(CourseGoodsEntity courseGoodsEntity);
 }
